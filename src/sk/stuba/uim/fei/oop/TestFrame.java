@@ -7,23 +7,27 @@ import java.awt.event.ItemListener;
 
 public class TestFrame extends JFrame implements ItemListener {
 
-    JCheckBox one;
-    JCheckBox two;
+    JRadioButton one;
+    JRadioButton two;
     JTextField in;
+    ButtonGroup bg;
 
     public TestFrame(){
 
         super("Test");
         setLayout(new BorderLayout());
         setSize(500,500);
+        bg = new ButtonGroup();
 
-        one = new JCheckBox("one", true);
+        one = new JRadioButton("one");
         one.addItemListener(this);
         add(BorderLayout.NORTH, one);
+        bg.add(one);
 
-        two = new JCheckBox("two", true);
+        two = new JRadioButton("two", true);
         two.addItemListener(this);
         add(BorderLayout.CENTER, two);
+        bg.add(two);
 
         in = new JTextField();
         add(BorderLayout.SOUTH, in);
