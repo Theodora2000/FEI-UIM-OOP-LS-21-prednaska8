@@ -7,44 +7,46 @@ import java.awt.event.ItemListener;
 
 public class TestFrame extends JFrame implements ItemListener {
 
-    JRadioButton one;
-    JRadioButton two;
-    JTextField in;
-    ButtonGroup bg;
+    List zoznam;
+    Choice rozbalovacie_volby;
+    String  polozky_pre_zoznam[] = {"Jablko", "Hruska", "Ceresna", "Melon", "Ananas"};
+    String  polozky_pre_rozbalovacie[] = {"Jablko", "Hruska", "Ceresna", "Melon", "Ananas"};
+
 
     public TestFrame(){
 
         super("Test");
         setLayout(new BorderLayout());
         setSize(500,500);
-        bg = new ButtonGroup();
 
-        one = new JRadioButton("one");
-        one.addItemListener(this);
-        add(BorderLayout.NORTH, one);
-        bg.add(one);
+        rozbalovacie_volby = new Choice();
+        rozbalovacie_volby.addItemListener(this);
 
-        two = new JRadioButton("two", true);
-        two.addItemListener(this);
-        add(BorderLayout.CENTER, two);
-        bg.add(two);
+        zoznam = new List();
+        zoznam.addItemListener(this);
 
-        in = new JTextField();
-        add(BorderLayout.SOUTH, in);
-        in.setText("One is " + one.isSelected() + " and two is " + two.isSelected());
+        for(int i=0;i< polozky_pre_rozbalovacie.length;i++){
+            rozbalovacie_volby.add(polozky_pre_rozbalovacie[i]);
+        }
 
-        pack();
+        for(int i=0;i< polozky_pre_zoznam.length;i++){
+            zoznam.add(polozky_pre_zoznam[i]);
+        }
+
+        add(BorderLayout.CENTER, zoznam);
+        add(BorderLayout.SOUTH, rozbalovacie_volby);
+
         setVisible(true);
 
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if(e.getSource() == one){
-            in.setText("One was changes and is " + one.isSelected() + " and two is " + two.isSelected());
+        if(e.getSource() == rozbalovacie_volby){
+            zoznam.select(rozbalovacie_volby.getSelectedIndex());
         }
-        else if(e.getSource() == two){
-            in.setText("Two was changes and is " + two.isSelected() + " and one is " + one.isSelected());
+        else if(e.getSource() ==  zoznam){
+            rozbalovacie_volby.select(zoznam.getSelectedIndex());
         }
 
     }
